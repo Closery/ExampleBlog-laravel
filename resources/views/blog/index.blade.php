@@ -23,7 +23,7 @@
 
                         <div class="mx-2">−</div>
 
-                        @if (auth()->user())
+                        @auth
                             <div class="flex w-20 justify-between">
                                 @if (!$post->isLikedBy(auth()->user()))
                                     <form action="{{ route('blog.likePost', $post->id) }}" method="POST">
@@ -38,7 +38,7 @@
                                     </form>
                                 @endif                            
                             </div>
-                        @endif
+                        @endauth
                     </span>
                     <a href="#" class="block mt-2 text-2xl font-semibold text-gray-800 dark:text-white hover:text-gray-600 hover:underline">
                         {{ $post->title }}
