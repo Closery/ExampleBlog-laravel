@@ -16,8 +16,29 @@
 
             <div class="p-6">
                 <div>
-                    <span class="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
-                        {{ $post->likes->count() }} {{ Str::plural('like', $post->likes->count()) }}
+                    <span class="flex text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
+                        <div>
+                            {{ $post->likes->count() }} {{ Str::plural('like', $post->likes->count()) }}
+                        </div>
+
+                        <div class="mx-2">−</div>
+
+                        @if (auth()->user())
+                            <div class="flex w-20 justify-between">
+                                @if (!$post->isLikedBy(auth()->user()))
+                                    <form action="{{ route('blog.likePost', $post->id) }}" method="POST">
+                                        @csrf
+                                        <button>🖤</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('blog.unlikePost', $post->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button>❤️</button>
+                                    </form>
+                                @endif                            
+                            </div>
+                        @endif
                     </span>
                     <a href="#" class="block mt-2 text-2xl font-semibold text-gray-800 dark:text-white hover:text-gray-600 hover:underline">
                         {{ $post->title }}

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +29,8 @@ Route::post('/login', [LoginController::class, 'Login']);
 
 Route::post('/logout', [LogoutController::class, 'Logout'])->name('logout');
 
-Route::get('/blog', [BlogController::class, 'Index'])->name('blog');
-Route::get('/blog/create', [BlogController::class, 'Create'])->name('blog.create');
-Route::post('/blog/create', [BlogController::class, 'CreatePost']);
+Route::get('/blog/posts', [PostController::class, 'Index'])->name('blog');
+Route::get('/blog/posts/create', [PostController::class, 'Create'])->name('blog.create');
+Route::post('/blog/posts/create', [PostController::class, 'CreatePost']);
+Route::post('/blog/posts/{post}/likePost', [PostController::class, 'LikePost'])->name('blog.likePost');
+Route::delete('/blog/posts/{post}/unlinePost', [PostController::class, 'UnlikePost'])->name('blog.unlikePost');
