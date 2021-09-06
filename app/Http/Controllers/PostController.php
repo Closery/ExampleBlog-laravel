@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function Index() {
-        $posts = Post::paginate(5);
+        $posts = Post::with(['user', 'likes'])->paginate(5);
         
         return view('blog.index', [
             'posts' => $posts
@@ -45,7 +45,7 @@ class PostController extends Controller
 
     public function UnlikePost(Post $post, Request $request) {
         $request->user()->likes()->where('post_id', $post->id)->delete();
-        
+
         return back();
     }
 }
